@@ -10,3 +10,4 @@ Objective: Create a web api to visualize trends in stocks
 - End date should not be before begin date
 6. Generare a graph and open in user's default browser
 
+
