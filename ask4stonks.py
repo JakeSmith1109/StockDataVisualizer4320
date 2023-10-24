@@ -2,6 +2,7 @@
 import re
 import datetime
 import requests
+import pygal
 
 # Tell em
 print("Stonk Data Visualizer")
@@ -66,6 +67,7 @@ while True:
     except ValueError:
         print("Invalid date format. Please use YYYY-MM-DD format for dates.")
 
+apiKey = 'DRG582I7BHG1JLI6'
 
 #Pulling from api based on time series
 if timeSeries==1:
@@ -88,7 +90,7 @@ elif timeSeries==2:
         if dat==beginDate:
             continue
 elif timeSeries==3:
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol='+stonkSymbol+'&apikey='+apikey
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol='+stonkSymbol+'&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
 
@@ -98,7 +100,7 @@ elif timeSeries==3:
         if dat==beginDate:
             continue
 elif timeSeries==4:
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol='+stonkSymbol+'&apikey='+apikey
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol='+stonkSymbol+'&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
 
@@ -108,5 +110,18 @@ elif timeSeries==4:
         if dat==beginDate:
             continue
 
-
 # Generate a graph and open in the user’s default browser.
+if chartType == 1:
+    chart = pygal.Bar(title='Stock Data for '+stonkSymbol+ ': ' +beginDate+ ' to ' +endDate)
+    chart.add('Open', data)
+    chart.add('Close')
+    chart.add('High')
+    chart.add('Low')
+    chart.render_in_browser()
+if chartType == 2:
+    chart = pygal.Line(title='Stock Data for '+stonkSymbol+ ': ' +beginDate+ ' to ' +endDate)
+    chart.add('Open')
+    chart.add('Close')
+    chart.add('High')
+    chart.add('Low')
+    chart.render_in_browser()
