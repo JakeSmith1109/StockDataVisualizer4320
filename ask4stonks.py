@@ -78,7 +78,8 @@ if timeSeries=="1":
 
     print(data)
     intraday_data = data['Time Series (5min)']
-    sorted_data = sorted(intraday_data.items(), key=lambda x: x[0])
+    filtered_data = {date: values for date, values in intraday_data.items() if beginDate <= date <= endDate}
+    sorted_data = sorted(filtered_data.items(), key=lambda x: x[0])
 
     if chartType == "1":
         chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
@@ -105,7 +106,8 @@ elif timeSeries=="2":
     print(data)
     #Started architecture for filtering, the first line is to get to the actual data, which looks like a dictionary inside a dictionary 
     daily_data = data['Time Series (Daily)']
-    sorted_data = sorted(daily_data.items(), key=lambda x: x[0])
+    filtered_data = {date: values for date, values in daily_data.items() if beginDate <= date <= endDate}
+    sorted_data = sorted(filtered_data.items(), key=lambda x: x[0])
 
     if chartType == "1":
         chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
@@ -131,7 +133,8 @@ elif timeSeries=="3":
 
     print(data)
     weekly_data = data['Weekly Time Series']
-    sorted_data = sorted(weekly_data.items(), key=lambda x: x[0])
+    filtered_data = {date: values for date, values in weekly_data.items() if beginDate <= date <= endDate}
+    sorted_data = sorted(filtered_data.items(), key=lambda x: x[0])
 
     if chartType == "1":
         chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
@@ -157,7 +160,8 @@ elif timeSeries=="4":
 
     print(data)
     monthly_data = data['Monthly Time Series']
-    sorted_data = sorted(monthly_data.items(), key=lambda x: x[0])
+    filtered_data = {date: values for date, values in monthly_data.items() if beginDate <= date <= endDate}
+    sorted_data = sorted(filtered_data.items(), key=lambda x: x[0])
 
     if chartType == "1":
         chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
