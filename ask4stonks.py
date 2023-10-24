@@ -112,8 +112,11 @@ elif timeSeries=="4":
         if dat==beginDate:
             continue
 
-#Pull data into a filetered list to only include the dates between the start and end date
-filtered_data = {date: values for date, values in data.items() if beginDate <= date <= endDate}
+def date_to_datetime(date_string):
+    return datetime.datetime.strptime(date_string, "%Y-%m-%d")
+
+# Pull data into a filtered list to include dates between the start and end date
+filtered_data = {date: values for date, values in data.items() if date_to_datetime(beginDate) <= date_to_datetime(date) <= date_to_datetime(endDate)}
 
 # Generate a graph (line/bar) and open it in the user’s default browser.
 if chartType == "1":
