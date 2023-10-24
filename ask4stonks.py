@@ -111,20 +111,25 @@ elif timeSeries=="4":
         if dat==beginDate:
             continue
 
+#Pull data into a filetered list to only include the dates between the start and end date
 filtered_data = {date: values for date, values in data.items() if beginDate <= date <= endDate}
 
-# Generate a graph and open it in the user’s default browser.
+# Generate a graph (line/bar) and open it in the user’s default browser.
 if chartType == "1":
+    #Create title using beginning and end date
     chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
     chart.x_labels = [date for date in filtered_data.keys()]
+    #Add values to corresponding keys
     chart.add('Open', [float(values['1. open']) for values in filtered_data.values()])
     chart.add('Close', [float(values['4. close']) for values in filtered_data.values()])
     chart.add('High', [float(values['2. high']) for values in filtered_data.values()])
     chart.add('Low', [float(values['3. low']) for values in filtered_data.values()])
     chart.render_in_browser()
 elif chartType == "2":
+    #Create title using beginning and end date
     chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
     chart.x_labels = [date for date in filtered_data.keys()]
+    #Add values to corresponding keys
     chart.add('Open', [float(values['1. open']) for values in filtered_data.values()])
     chart.add('Close', [float(values['4. close']) for values in filtered_data.values()])
     chart.add('High', [float(values['2. high']) for values in filtered_data.values()])
