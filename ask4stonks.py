@@ -111,27 +111,27 @@ elif timeSeries=="4":
         if dat==beginDate:
             continue
 
-# Generate a graph and open in the user’s default browser.
-if chartType == "1":
-    chart = pygal.Bar(title='Stock Data for '+stonkSymbol+ ': ' +beginDate+ ' to ' +endDate)
-    chart.add('Open')
-    chart.add('Close')
-    chart.add('High')
-    chart.add('Low')
-    chart.render_in_browser()
-if chartType == "2":
-    chart = pygal.Line(title='Stock Data for '+stonkSymbol+ ': ' +beginDate+ ' to ' +endDate, x_label_rotation=20, show_minor_x_labels=False)
-    dates = list(data.keys())
-    opens = [float(data[date]['1. open']) for date in dates]
-    highs = [float(data[date]['2. high']) for date in dates]
-    lows = [float(data[date]['3. low']) for date in dates]
-    closes = [float(data[date]['4. close']) for date in dates]
-    volumes = [int(data[date]['5. volume']) for date in dates]
+#Pull data into a filetered list to only include the dates between the start and end date
+filtered_data = {date: values for date, values in data.items() if beginDate <= date <= endDate}
 
-    # Creating a line chart
-    chart.x_labels = dates
-    chart.add('Open', opens)
-    chart.add('High', highs)
-    chart.add('Low', lows)
-    chart.add('Close', closes)
+# Generate a graph (line/bar) and open it in the user’s default browser.
+if chartType == "1":
+    #Create title using beginning and end date
+    chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+    chart.x_labels = [date for date in filtered_data.keys()]
+    #Add values to corresponding keys
+    chart.add('Open', [float(values['1. open']) for values in filtered_data.values()])
+    chart.add('Close', [float(values['4. close']) for values in filtered_data.values()])
+    chart.add('High', [float(values['2. high']) for values in filtered_data.values()])
+    chart.add('Low', [float(values['3. low']) for values in filtered_data.values()])
+    chart.render_in_browser()
+elif chartType == "2":
+    #Create title using beginning and end date
+    chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+    chart.x_labels = [date for date in filtered_data.keys()]
+    #Add values to corresponding keys
+    chart.add('Open', [float(values['1. open']) for values in filtered_data.values()])
+    chart.add('Close', [float(values['4. close']) for values in filtered_data.values()])
+    chart.add('High', [float(values['2. high']) for values in filtered_data.values()])
+    chart.add('Low', [float(values['3. low']) for values in filtered_data.values()])
     chart.render_in_browser()
