@@ -70,14 +70,14 @@ while True:
 apiKey = 'DRG582I7BHG1JLI6'
 
 #Pulling from api based on time series
-if timeSeries==1:
+if timeSeries=="1":
     #intraday is a little more tricky because there's an interval, and an optional month
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+stonkSymbol+'&interval=5min&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
 
     print(data)
-elif timeSeries==2:
+elif timeSeries=="2":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stonkSymbol+'&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
@@ -89,7 +89,7 @@ elif timeSeries==2:
     for dat in data:
         if dat==beginDate:
             continue
-elif timeSeries==3:
+elif timeSeries=="3":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol='+stonkSymbol+'&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
@@ -99,7 +99,7 @@ elif timeSeries==3:
     for dat in data:
         if dat==beginDate:
             continue
-elif timeSeries==4:
+elif timeSeries=="4":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol='+stonkSymbol+'&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
@@ -111,14 +111,14 @@ elif timeSeries==4:
             continue
 
 # Generate a graph and open in the user’s default browser.
-if chartType == 1:
+if chartType == "1":
     chart = pygal.Bar(title='Stock Data for '+stonkSymbol+ ': ' +beginDate+ ' to ' +endDate)
-    chart.add('Open', data)
+    chart.add('Open')
     chart.add('Close')
     chart.add('High')
     chart.add('Low')
     chart.render_in_browser()
-if chartType == 2:
+if chartType == "2":
     chart = pygal.Line(title='Stock Data for '+stonkSymbol+ ': ' +beginDate+ ' to ' +endDate)
     chart.add('Open')
     chart.add('Close')
