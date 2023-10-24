@@ -1,6 +1,7 @@
  # import random things to make code work
 import re
 import datetime
+import requests
 
 # Tell em
 print("Stonk Data Visualizer")
@@ -64,5 +65,46 @@ while True:
             break
     except ValueError:
         print("Invalid date format. Please use YYYY-MM-DD format for dates.")
+
+
+#Pulling from api based on time series
+if timeSeries==1:
+    #intraday is a little more tricky because there's an interval, and an optional month
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+stonkSymbol+'&interval=5min&apikey='+apiKey
+    r = requests.get(url)
+    data = r.json()
+
+    print(data)
+elif timeSeries==2:
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stonkSymbol+'&apikey='+apiKey
+    r = requests.get(url)
+    data = r.json()
+
+    print(data)
+    data=data["Time Series (Daily)"]
+    for dat in data:
+        if dat==beginDate:
+            continue
+elif timeSeries==3:
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol='+stonkSymbol+'&apikey='+apikey
+    r = requests.get(url)
+    data = r.json()
+
+    print(data)
+    data=data["Time Series (Weekly)"]
+    for dat in data:
+        if dat==beginDate:
+            continue
+elif timeSeries==4:
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol='+stonkSymbol+'&apikey='+apikey
+    r = requests.get(url)
+    data = r.json()
+
+    print(data)
+    data=data["Time Series (Monthly)"]
+    for dat in data:
+        if dat==beginDate:
+            continue
+
 
 # Generate a graph and open in the user’s default browser.
