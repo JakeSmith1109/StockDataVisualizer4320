@@ -84,19 +84,19 @@ if timeSeries=="1":
     if chartType == "1":
         chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
         chart.x_labels = [date for date, _ in filtered_data]
-        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
-        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
-        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
-        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.add('Open', [float(values['1. open']) for _, values in filtered_data])
+        chart.add('Close', [float(values['4. close']) for _, values in filtered_data])
+        chart.add('High', [float(values['2. high']) for _, values in filtered_data])
+        chart.add('Low', [float(values['3. low']) for _, values in filtered_data])
         chart.render_in_browser()
     # Create the chart
     if chartType == "2":
         chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
         chart.x_labels = [date for date, _ in filtered_data]
-        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
-        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
-        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
-        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.add('Open', [float(values['1. open']) for _, values in filtered_data])
+        chart.add('Close', [float(values['4. close']) for _, values in filtered_data])
+        chart.add('High', [float(values['2. high']) for _, values in filtered_data])
+        chart.add('Low', [float(values['3. low']) for _, values in filtered_data])
         chart.render_in_browser()
 elif timeSeries=="2":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stonkSymbol+'&apikey='+apiKey
@@ -112,19 +112,19 @@ elif timeSeries=="2":
     if chartType == "1":
         chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
         chart.x_labels = [date for date, _ in filtered_data]
-        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
-        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
-        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
-        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.add('Open', [float(values['1. open']) for _, values in filtered_data])
+        chart.add('Close', [float(values['4. close']) for _, values in filtered_data])
+        chart.add('High', [float(values['2. high']) for _, values in filtered_data])
+        chart.add('Low', [float(values['3. low']) for _, values in filtered_data])
         chart.render_in_browser()
     # Create the chart
     if chartType == "2":
         chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
         chart.x_labels = [date for date, _ in filtered_data]
-        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
-        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
-        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
-        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.add('Open', [float(values['1. open']) for _, values in filtered_data])
+        chart.add('Close', [float(values['4. close']) for _, values in filtered_data])
+        chart.add('High', [float(values['2. high']) for _, values in filtered_data])
+        chart.add('Low', [float(values['3. low']) for _, values in filtered_data])
         chart.render_in_browser()
 elif timeSeries=="3":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol='+stonkSymbol+'&apikey='+apiKey
@@ -139,19 +139,19 @@ elif timeSeries=="3":
     if chartType == "1":
         chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
         chart.x_labels = [date for date, _ in filtered_data]
-        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
-        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
-        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
-        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.add('Open', [float(values['1. open']) for _, values in filtered_data])
+        chart.add('Close', [float(values['4. close']) for _, values in filtered_data])
+        chart.add('High', [float(values['2. high']) for _, values in filtered_data])
+        chart.add('Low', [float(values['3. low']) for _, values in filtered_data])
         chart.render_in_browser()
     # Create the chart
     if chartType == "2":
         chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
         chart.x_labels = [date for date, _ in filtered_data]
-        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
-        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
-        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
-        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.add('Open', [float(values['1. open']) for _, values in filtered_data])
+        chart.add('Close', [float(values['4. close']) for _, values in filtered_data])
+        chart.add('High', [float(values['2. high']) for _, values in filtered_data])
+        chart.add('Low', [float(values['3. low']) for _, values in filtered_data])
         chart.render_in_browser()
 elif timeSeries=="4":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol='+stonkSymbol+'&apikey='+apiKey
@@ -166,17 +166,17 @@ elif timeSeries=="4":
     if chartType == "1":
         chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
         chart.x_labels = [date for date, _ in filtered_data]
-        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
-        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
-        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
-        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.add('Open', [float(values['1. open']) for _, values in filtered_data])
+        chart.add('Close', [float(values['4. close']) for _, values in filtered_data])
+        chart.add('High', [float(values['2. high']) for _, values in filtered_data])
+        chart.add('Low', [float(values['3. low']) for _, values in filtered_data])
         chart.render_in_browser()
     # Create the chart
     if chartType == "2":
         chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
         chart.x_labels = [date for date, _ in filtered_data]
-        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
-        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
-        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
-        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.add('Open', [float(values['1. open']) for _, values in filtered_data])
+        chart.add('Close', [float(values['4. close']) for _, values in filtered_data])
+        chart.add('High', [float(values['2. high']) for _, values in filtered_data])
+        chart.add('Low', [float(values['3. low']) for _, values in filtered_data])
         chart.render_in_browser()
