@@ -81,7 +81,9 @@ elif timeSeries==2:
     data = r.json()
 
     print(data)
+    #Started architecture for filtering, the first line is to get to the actual data, which looks like a dictionary inside a dictionary 
     data=data["Time Series (Daily)"]
+    #this will go through each of the dictionaries for each time series (day,week,month), each of which uses the date as the key value
     for dat in data:
         if dat==beginDate:
             continue
