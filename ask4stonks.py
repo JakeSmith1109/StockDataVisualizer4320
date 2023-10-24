@@ -120,9 +120,18 @@ if chartType == "1":
     chart.add('Low')
     chart.render_in_browser()
 if chartType == "2":
-    chart = pygal.Line(title='Stock Data for '+stonkSymbol+ ': ' +beginDate+ ' to ' +endDate)
-    chart.add('Open')
-    chart.add('Close')
-    chart.add('High')
-    chart.add('Low')
+    chart = pygal.Line(title='Stock Data for '+stonkSymbol+ ': ' +beginDate+ ' to ' +endDate, x_label_rotation=20, show_minor_x_labels=False)
+    dates = list(data.keys())
+    opens = [float(data[date]['1. open']) for date in dates]
+    highs = [float(data[date]['2. high']) for date in dates]
+    lows = [float(data[date]['3. low']) for date in dates]
+    closes = [float(data[date]['4. close']) for date in dates]
+    volumes = [int(data[date]['5. volume']) for date in dates]
+
+    # Creating a line chart
+    chart.x_labels = dates
+    chart.add('Open', opens)
+    chart.add('High', highs)
+    chart.add('Low', lows)
+    chart.add('Close', closes)
     chart.render_in_browser()
