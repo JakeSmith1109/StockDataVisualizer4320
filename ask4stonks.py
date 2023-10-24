@@ -77,6 +77,7 @@ if timeSeries=="1":
     data = r.json()
 
     print(data)
+    data=data["Time Series (5min)"]
 elif timeSeries=="2":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stonkSymbol+'&apikey='+apiKey
     r = requests.get(url)
