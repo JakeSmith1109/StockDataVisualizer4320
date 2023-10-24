@@ -57,7 +57,7 @@ while True:
         if not (1000 <= begin_year <= 9999 and 1000 <= end_year <= 9999):
             print("Year should have 4 digits.")
         elif not (1 <= begin_month <= 12 and 1 <= end_month <= 12):
-            print("Month should have 2 digits or sbe in the range 1-12.")
+            print("Month should have 2 digits or be in the range 1-12.")
         elif not (1 <= begin_day <= 31 and 1 <= end_day <= 31):
             print("Day should have 2 digits or be in the range 1-31.")
         elif endDate < beginDate:
