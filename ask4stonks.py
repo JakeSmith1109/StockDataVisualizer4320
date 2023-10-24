@@ -77,7 +77,26 @@ if timeSeries=="1":
     data = r.json()
 
     print(data)
-    data=data["Time Series (5min)"]
+    intraday_data = data['Time Series (5min)']
+    sorted_data = sorted(intraday_data.items(), key=lambda x: x[0])
+
+    if chartType == "1":
+        chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+        chart.x_labels = [date for date, _ in sorted_data]
+        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
+        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
+        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
+        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.render_in_browser()
+    # Create the chart
+    if chartType == "2":
+        chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+        chart.x_labels = [date for date, _ in sorted_data]
+        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
+        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
+        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
+        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.render_in_browser()
 elif timeSeries=="2":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stonkSymbol+'&apikey='+apiKey
     r = requests.get(url)
@@ -85,57 +104,75 @@ elif timeSeries=="2":
 
     print(data)
     #Started architecture for filtering, the first line is to get to the actual data, which looks like a dictionary inside a dictionary 
-    data=data["Time Series (Daily)"]
-    
-    #this will go through each of the dictionaries for each time series (day,week,month), each of which uses the date as the key value
-    for dat in data:
-        if dat==beginDate:
-            continue
+    daily_data = data['Time Series (Daily)']
+    sorted_data = sorted(daily_data.items(), key=lambda x: x[0])
+
+    if chartType == "1":
+        chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+        chart.x_labels = [date for date, _ in sorted_data]
+        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
+        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
+        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
+        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.render_in_browser()
+    # Create the chart
+    if chartType == "2":
+        chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+        chart.x_labels = [date for date, _ in sorted_data]
+        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
+        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
+        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
+        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.render_in_browser()
 elif timeSeries=="3":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol='+stonkSymbol+'&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
 
     print(data)
-    data=data["Weekly Time Series"]
-    for dat in data:
-        if dat==beginDate:
-            continue
+    weekly_data = data['Weekly Time Series']
+    sorted_data = sorted(weekly_data.items(), key=lambda x: x[0])
+
+    if chartType == "1":
+        chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+        chart.x_labels = [date for date, _ in sorted_data]
+        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
+        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
+        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
+        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.render_in_browser()
+    # Create the chart
+    if chartType == "2":
+        chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+        chart.x_labels = [date for date, _ in sorted_data]
+        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
+        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
+        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
+        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.render_in_browser()
 elif timeSeries=="4":
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol='+stonkSymbol+'&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
 
     print(data)
-    data=data["Monthly Time Series"]
-    for dat in data:
-        if dat==beginDate:
-            continue
+    monthly_data = data['Monthly Time Series']
+    sorted_data = sorted(monthly_data.items(), key=lambda x: x[0])
 
-def date_to_datetime(date_string):
-    return datetime.datetime.strptime(date_string, "%Y-%m-%d")
-
-# Pull data into a filtered list to include dates between the start and end date
-filtered_data = {date: values for date, values in data.items() if date_to_datetime(beginDate) <= date_to_datetime(date) <= date_to_datetime(endDate)}
-
-# Generate a graph (line/bar) and open it in the user’s default browser.
-if chartType == "1":
-    #Create title using beginning and end date
-    chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
-    chart.x_labels = [date for date in filtered_data.keys()]
-    #Add values to corresponding keys
-    chart.add('Open', [float(values['1. open']) for values in filtered_data.values()])
-    chart.add('Close', [float(values['4. close']) for values in filtered_data.values()])
-    chart.add('High', [float(values['2. high']) for values in filtered_data.values()])
-    chart.add('Low', [float(values['3. low']) for values in filtered_data.values()])
-    chart.render_in_browser()
-elif chartType == "2":
-    #Create title using beginning and end date
-    chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
-    chart.x_labels = [date for date in filtered_data.keys()]
-    #Add values to corresponding keys
-    chart.add('Open', [float(values['1. open']) for values in filtered_data.values()])
-    chart.add('Close', [float(values['4. close']) for values in filtered_data.values()])
-    chart.add('High', [float(values['2. high']) for values in filtered_data.values()])
-    chart.add('Low', [float(values['3. low']) for values in filtered_data.values()])
-    chart.render_in_browser()
+    if chartType == "1":
+        chart = pygal.Bar(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+        chart.x_labels = [date for date, _ in sorted_data]
+        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
+        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
+        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
+        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.render_in_browser()
+    # Create the chart
+    if chartType == "2":
+        chart = pygal.Line(title='Stock Data for ' + stonkSymbol + ': ' + beginDate + ' to ' + endDate, x_label_rotation=90, show_minor_x_labels=True)
+        chart.x_labels = [date for date, _ in sorted_data]
+        chart.add('Open', [float(values['1. open']) for _, values in sorted_data])
+        chart.add('Close', [float(values['4. close']) for _, values in sorted_data])
+        chart.add('High', [float(values['2. high']) for _, values in sorted_data])
+        chart.add('Low', [float(values['3. low']) for _, values in sorted_data])
+        chart.render_in_browser()
