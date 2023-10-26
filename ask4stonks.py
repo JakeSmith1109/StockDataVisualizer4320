@@ -72,7 +72,7 @@ apiKey = 'DRG582I7BHG1JLI6'
 #Pulling from api based on time series
 if timeSeries=="1":
     #intraday is a little more tricky because there's an interval, and an optional month
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+stonkSymbol+'&interval=5min&apikey='+apiKey
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+stonkSymbol+'&interval=5min&outputsize=full&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
 
@@ -99,7 +99,7 @@ if timeSeries=="1":
         chart.add('Low', [float(values['3. low']) for _, values in filtered_data])
         chart.render_in_browser()
 elif timeSeries=="2":
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stonkSymbol+'&apikey='+apiKey
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+stonkSymbol+'&outputsize=full&apikey='+apiKey
     r = requests.get(url)
     data = r.json()
 
