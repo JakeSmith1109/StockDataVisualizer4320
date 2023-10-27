@@ -67,17 +67,63 @@ while True:
     except ValueError:
         print("Invalid date format. Please use YYYY-MM-DD format for dates.")
 
-apiKey = 'DRG582I7BHG1JLI6'
+#apiKey = 'DRG582I7BHG1JLI6'
+apiKey = 'JQDCJ9W4UP3840QP'
 
 #Pulling from api based on time series
 if timeSeries=="1":
     #intraday is a little more tricky because there's an interval, and an optional month
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+stonkSymbol+'&interval=5min&outputsize=full&apikey='+apiKey
-    r = requests.get(url)
-    data = r.json()
+    currentMonth=begin_month
+    currentYear=begin_year
+    intraday_data={}
 
-    print(data)
-    intraday_data = data['Time Series (5min)']
+    #Okay so
+    #First step is to assign begin month and year to other variables so I can add to them willy nilly
+    #Also create a dictionary I think called data to make the processing easier
+    #Then, make a loop, probably while true, I can break it later
+    while(True):
+        #Check if the month is greater than 12. This way, I can make sure I'm not trying to find like, Franuary or whatever the 13th month would be
+        # If it is, set it to 1 and then increase the year by 1
+        if(currentMonth>12):
+            currentMonth=1
+            currentYear+=1
+        #Next, check if the month is greater than the end month and the end year is greater than the end year
+        #Has to be and because month is probably gonna get there faster
+        #   If it is, break
+        if(currentMonth>end_month and currentYear>=end_year):
+            break
+
+        month=""+str(currentYear)+"-"+str(currentMonth)
+    
+        print(month)
+        url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+stonkSymbol+'&interval=5min&month='+month+'outputsize=full&apikey='+apiKey
+        r = requests.get(url)
+        data = r.json()
+        print(data)
+        print(data.keys())
+
+        #could I iterate through by item, then use the single as the key to add the data to the intraday dictionary?
+        #I dunno it sounds logical loll
+        data=data['Time Series (5min)']
+        for dat in data:
+            print(dat)
+            intraday_data[dat]=data[dat]
+    
+    
+    
+    
+    
+
+    #After that, make a string in the format 'currentYear' + "-" + 'currentMonth'
+
+    #then slap a month in the url, run through the processing, extract the data dictionary, and then either append the data dictionary or loop through it and append each entry
+    #Check both
+
+    #And then increase month by one
+
+
+    
+    
     sorted_data = sorted(intraday_data.items(), key=lambda x: x[0])
     filtered_data = [(date, values) for date, values in sorted_data if beginDate <= date <= endDate]
 
