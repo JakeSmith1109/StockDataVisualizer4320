@@ -90,7 +90,7 @@ if timeSeries=="1":
         #Next, check if the month is greater than the end month and the end year is greater than the end year
         #Has to be and because month is probably gonna get there faster
         #   If it is, break
-        if(currentMonth>end_month and currentYear>=end_year):
+        if(currentMonth>=end_month and currentYear>=end_year):
             break
 
         month=""+str(currentYear)+"-"+str(currentMonth)
@@ -108,6 +108,7 @@ if timeSeries=="1":
         for dat in data:
             print(dat)
             intraday_data[dat]=data[dat]
+        currentMonth +=1
     
     
     
